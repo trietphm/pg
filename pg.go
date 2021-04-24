@@ -178,6 +178,10 @@ func (strings Strings) AppendValue(dst []byte, quote int) ([]byte, error) {
 	return dst, nil
 }
 
+func (m Strings) Columns() map[string]types.ColumnInfo {
+	return nil
+}
+
 //------------------------------------------------------------------------------
 
 // Ints is a type alias for a slice of int64 values.
@@ -231,6 +235,10 @@ func (ints Ints) AppendValue(dst []byte, quote int) ([]byte, error) {
 	return dst, nil
 }
 
+func (m Ints) Columns() map[string]types.ColumnInfo {
+	return nil
+}
+
 //------------------------------------------------------------------------------
 
 // IntSet is a set of int64 values.
@@ -270,5 +278,9 @@ func (set *IntSet) ScanColumn(col types.ColumnInfo, rd types.Reader, n int) erro
 	}
 
 	setVal[num] = struct{}{}
+	return nil
+}
+
+func (m IntSet) Columns() map[string]types.ColumnInfo {
 	return nil
 }

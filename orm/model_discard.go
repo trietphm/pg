@@ -6,6 +6,7 @@ import (
 
 type Discard struct {
 	hookStubs
+	columns map[string]types.ColumnInfo
 }
 
 var _ Model = (*Discard)(nil)
@@ -23,5 +24,9 @@ func (m Discard) AddColumnScanner(ColumnScanner) error {
 }
 
 func (m Discard) ScanColumn(col types.ColumnInfo, rd types.Reader, n int) error {
+	return nil
+}
+
+func (Discard) Columns() map[string]types.ColumnInfo {
 	return nil
 }

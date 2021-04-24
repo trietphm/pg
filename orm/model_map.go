@@ -6,8 +6,9 @@ import (
 
 type mapModel struct {
 	hookStubs
-	ptr *map[string]interface{}
-	m   map[string]interface{}
+	ptr     *map[string]interface{}
+	m       map[string]interface{}
+	columns map[string]types.ColumnInfo
 }
 
 var _ Model = (*mapModel)(nil)
@@ -38,6 +39,10 @@ func (m mapModel) AddColumnScanner(ColumnScanner) error {
 	return nil
 }
 
+func (m mapModel) Columns() map[string]types.ColumnInfo {
+	return m.columns
+}
+
 func (m *mapModel) ScanColumn(col types.ColumnInfo, rd types.Reader, n int) error {
 	val, err := types.ReadColumnValue(col, rd, n)
 	if err != nil {
@@ -45,7 +50,17 @@ func (m *mapModel) ScanColumn(col types.ColumnInfo, rd types.Reader, n int) erro
 	}
 
 	m.m[col.Name] = val
+	m.saveColumnsInfo(col)
 	return nil
+}
+
+func (m *mapModel) saveColumnsInfo(col types.ColumnInfo) {
+	if m.columns == nil {
+		m.columns = make(map[string]types.ColumnInfo)
+	}
+	if _, ok := m.columns[col.Name]; !ok {
+		m.columns[col.Name] = col
+	}
 }
 
 func (mapModel) useQueryOne() bool {

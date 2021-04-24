@@ -58,6 +58,10 @@ func (m *structTableModel) Relation() *Relation {
 	return m.rel
 }
 
+func (m *structTableModel) Columns() map[string]types.ColumnInfo {
+	return nil
+}
+
 func (m *structTableModel) AppendParam(fmter QueryFormatter, b []byte, name string) ([]byte, bool) {
 	b, ok := m.table.AppendParam(b, m.strct, name)
 	if ok {

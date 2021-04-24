@@ -26,6 +26,9 @@ type HooklessModel interface {
 
 	// AddColumnScanner adds the ColumnScanner to the model.
 	AddColumnScanner(ColumnScanner) error
+
+	// Columns List columns
+	Columns() map[string]types.ColumnInfo
 }
 
 type Model interface {
