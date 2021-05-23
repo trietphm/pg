@@ -45,7 +45,7 @@ func (err PGError) IntegrityViolation() bool {
 }
 
 func (err PGError) Error() string {
-	return fmt.Sprintf("%s %s",
+	return fmt.Sprintf("%s: %s",
 		err.Field('S'), err.Field('M'))
 }
 
