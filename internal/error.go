@@ -45,8 +45,8 @@ func (err PGError) IntegrityViolation() bool {
 }
 
 func (err PGError) Error() string {
-	return fmt.Sprintf("%s #%s %s",
-		err.Field('S'), err.Field('C'), err.Field('M'))
+	return fmt.Sprintf("%s %s",
+		err.Field('S'), err.Field('M'))
 }
 
 func AssertOneRow(l int) error {
